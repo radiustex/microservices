@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GRIGOREV CRUD</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif; /* Set font family */
+      text-align: center; /* Center align text */
+      background-color: #f0f0f0; /* Set background color */
+    }
+    h1 {
+      color: #333; /* Set heading color */
+    }
+    form {
+      margin-bottom: 20px; /* Add margin at the bottom */
+    }
+    input, button {
+      padding: 10px; /* Add padding to input and button */
+      margin: 5px; /* Add margin around input and button */
+      border-radius: 5px; /* Add border radius */
+      border: 1px solid #ccc; /* Add border */
+    }
+    table {
+      margin: 0 auto; /* Center align table */
+      width: 70%; /* Увеличить ширину таблицы в два раза */
+      border-collapse: collapse;
+      border-radius: 10px;
+      background-color: #fff; /* Set background color */
+    }
+    table th, table td {
+      padding: 15px;
+      border: 1px solid #ccc; /* Add border to table cells */
+    }
+    button {
+      padding: 10px; /* Add padding to button */
+      margin: 5px; /* Add margin around button */
+      border-radius: 5px; /* Add border radius */
+      cursor: pointer; /* Add cursor pointer on hover */
+    }
+    .btn-update {
+      background-color: #fdfd8e; /* Set button background color to yellow */
+      color: black; /* Set button text color to black */
+    }
+    .btn-delete {
+      background-color: #fd6262; /* Set button background color to red */
+      color: #fff; /* Set button text color */
+      width: 200px;
+    }
+    .btn-add {
+      background-color: #60fa60; /* Set button background color to green */
+      color: #fff; /* Set button text color */
+    }
+  </style>
+</head>
+<body>
+<h1>First CRUD App Grigorev (User list)</h1>
+<form action="/spring_mvc_war_exploded/addUser" method="POST">
+  <input type="text" name="firstName" placeholder="First name">
+  <input type="text" name="lastName" placeholder="Last name">
+  <input type="number" name="age" placeholder="Age">
+  <button type="submit" class="btn-add">Add user</button>
+</form>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Age</th>
+    <th>Settings</th>
+  </tr>
+  </thead>
+  <tbody>
+  <th:block th:each="user : ${users}">
+    <tr>
+      <td th:text="${user.getId()}"></td>
+      <td th:text="${user.getFirstName()}"></td>
+      <td th:text="${user.getLastName()}"></td>
+      <td th:text="${user.getAge()}"></td>
+      <td>
+        <form th:action="@{/updateUser/{id}(id=${user.id})}" th:method="post">
+          <input type="hidden" name="id" th:value="${user.id}">
+          <input type="text" name="firstName" placeholder="First name" th:value="${user.firstName}">
+          <input type="text" name="lastName" placeholder="Last name" th:value="${user.lastName}">
+          <input type="number" name="age" placeholder="Age" th:value="${user.age}">
+          <button type="submit" class="btn-update">Update</button>
+        </form>
+        <form th:action="@{/deleteUser/{id}(id=${user.id})}" th:method="post">
+          <button type="submit" class="btn-delete">Delete</button>
+        </form>
+      </td>
+    </tr>
+  </th:block>
+  </tbody>
+</table>
+</body>
+</html>
