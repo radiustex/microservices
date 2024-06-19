@@ -1,11 +1,56 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Spring Security Example</title>
+    <meta charset="UTF-8">
+    <title>Информация о пользователе</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: 'Open Sans', sans-serif;
+        }
+    </style>
 </head>
 <body>
-<h1>User, welcome spring boot security page!</h1>
-
-
+<h1>Информация о пользователе</h1>
+<table border="2">
+    <tr>
+        <th>ID</th>
+        <th>Роль пользователя</th>
+        <th>Логин</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Возраст</th>
+    </tr>
+    <tr th:if="${user != null}">
+        <td th:text="${user.getId()}"></td>
+        <td th:text="${user.getRoles()}"></td>
+        <td th:text="${user.getLogin()}"></td>
+        <td th:text="${user.getFirstName()}"></td>
+        <td th:text="${user.getLastName()}"></td>
+        <td th:text="${user.getAge()}"></td>
+    </tr>
+</table>
+<button onclick="location.href='/logout'">Выйти</button>
 </body>
 </html>
